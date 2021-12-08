@@ -75,6 +75,17 @@
             </v-row>
           </v-flex>
         </v-layout>
+        <v-layout>
+          <v-flex xs15 md1>
+            <v-row justify="space-around">
+              <v-col>
+                <v-btn depressed>
+                  Sumbit
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-flex>
+        </v-layout>
       </v-container>
     </v-main>
   </div>
