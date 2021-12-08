@@ -3,25 +3,19 @@
     <v-main>
       <v-container>
         <v-row
-            :align="align"
-            no-gutters
             style="height: 150px;">
-          <v-col md="3" xs="12">
+          <v-col md="6" xs="12">
             <v-text-field
                 label="Tour Title"
                 :rules="rules"
-                hide-details="auto"
                 v-model="input_tour.title"
             ></v-text-field>
           </v-col>
         </v-row>
-        <v-row
-            :align="align"
-            no-gutters
-            style="height: 150px;">
-          <v-col md="3" xs="12">
+        <v-row>
+          <v-col md="6" xs="12">
             <v-textarea
-                name="input-7-1"
+                name="input"
                 label="Long description"
                 value=""
                 hint="Hint text"
@@ -31,7 +25,6 @@
           </v-col>
         </v-row>
         <v-row
-            :align="align"
             no-gutters
             style="height: 150px;">
           <v-col md="3" xs="12">
