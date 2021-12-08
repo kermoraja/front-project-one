@@ -2,49 +2,52 @@
   <div>
     <v-main>
       <v-container>
-        <v-row
-            style="height: 150px;">
+        <v-row>
           <v-col md="6" xs="12">
             <v-text-field
                 label="Tour Title"
-                :rules="rules"
                 v-model="input_tour.title"
             ></v-text-field>
           </v-col>
         </v-row>
         <v-row>
-          <v-col md="6" xs="12">
+          <v-col md="8" xs="12">
+            <v-text-field v-model="input_tour.desc_short" label="Short Description"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col md="8" xs="12">
             <v-textarea
                 name="input"
                 label="Long description"
-                value=""
-                hint="Hint text"
                 v-model="input_tour.desc_long">
 
             </v-textarea>
           </v-col>
         </v-row>
-        <v-row
-            no-gutters
-            style="height: 150px;">
+        <v-row>
           <v-col md="3" xs="12">
-            <v-text-field v-model="input_tour.desc_short" :rules="rules" label="Short Description"></v-text-field>
+            <v-text-field v-model="input_tour.duration" label="Duration"></v-text-field>
           </v-col>
         </v-row>
         <v-row>
-          <v-col md="3" xs="12">
-            <v-text-field v-model="input_tour.duration" :rules="rules" label="Duration"></v-text-field>
+          <v-col xs="12" md="3">
+            <v-text-field v-model="input_tour.city" label="Insert City(1=Tallinn)"></v-text-field>
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col md="3" xs="12">
-            <v-text-field v-model="input_tour.city" :rules="rules" label="City"></v-text-field>
-          </v-col>
+
         </v-row>
         <v-row justify="space-around">
-          <v-col v-col md="1" xs="12">
+          <v-col md="1" xs="12">
             <v-btn depressed v-on:click = "createTour()">
               Submit
+            </v-btn>
+          </v-col>
+          <v-col md="2" xs="12">
+            Tour ID: {{tour_created}}
+          </v-col>
+          <v-col v-col md="1" xs="12">
+            <v-btn depressed v-on:click = "addPhotos(tour_created)">
+              Add Photos
             </v-btn>
           </v-col>
         </v-row>
@@ -62,19 +65,23 @@ export default {
       desc_short:"",
       desc_long:"",
       duration:"",
-      city:"",
+      city:0,
       img_url:"",
       input_tour: {},
+      input_image:{},
       tour_created: "",
       rules: [
         value => !!value || 'Required.',
-        value => (value && value.length >= 3) || 'Min 3 characters',
+        value => (value && value.length >= 1) || 'Min 3 characters',
       ],
       alignments: [
         'center',
       ],
+      items: [1, 2, 3]
     }
   },
+
+
 
   methods:{
     createTour: function () {
@@ -84,10 +91,15 @@ export default {
             this.tour_created = response.data
             console.log(this.tour_created)
           })
+    },
+
+    addPhotos:function() {
+      console.log(this.tour_created)
+      router.push({name: 'Add-photo', params: {id: this.tour_created.id}})
+    },
     }
 
   }
-}
 </script>
 <style>
 /*div {*/
