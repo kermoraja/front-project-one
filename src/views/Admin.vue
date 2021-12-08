@@ -2,25 +2,79 @@
   <div>
     <v-main>
       <v-container>
-        <v-row
-            :align="align"
-            no-gutters
-            style="height: 150px;"
-        >
-          <v-text-field
-              label="Tour Title"
-              :rules="rules"
-              hide-details="auto"
-              v-model="title"
-          ></v-text-field>
-          <v-text-field v-model="desc_long" :rules="rules" label="Long Description"></v-text-field>
-          <v-text-field v-model="desc_short" :rules="rules" label="Short Description"></v-text-field>
-          <v-text-field v-model="duration"  :rules="rules" label="Duration"></v-text-field>
-          <v-text-field v-model="city"  :rules="rules" label="City"></v-text-field>
-        </v-row>
-
-
-
+        <v-layout row wrap>
+          <v-flex xs12 md3>
+            <v-row
+                :align="align"
+                no-gutters
+                style="height: 150px;">
+              <v-col>
+                <v-text-field
+                    label="Tour Title"
+                    :rules="rules"
+                    hide-details="auto"
+                    v-model="title"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-flex>
+        </v-layout>
+        <v-layout>
+          <v-flex xs12 md3>
+            <v-row
+                :align="align"
+                no-gutters
+                style="height: 150px;">
+              <v-col>
+                <v-textarea
+                    name="input-7-1"
+                    label="Long description"
+                    value=""
+                    hint="Hint text"
+                ></v-textarea>
+              </v-col>
+            </v-row>
+          </v-flex>
+        </v-layout>
+        <v-layout>
+          <v-flex xs12 md3>
+            <v-row
+                :align="align"
+                no-gutters
+                style="height: 150px;">
+              <v-col>
+                <v-text-field v-model="desc_short" :rules="rules" label="Short Description"></v-text-field>
+              </v-col>
+            </v-row>
+          </v-flex>
+        </v-layout>
+        <v-layout>
+          <v-flex xs12 md3>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="duration" :rules="rules" label="Duration"></v-text-field>
+              </v-col>
+            </v-row>
+          </v-flex>
+        </v-layout>
+        <v-layout>
+          <v-flex xs12 md3>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="desc_short" :rules="rules" label="City"></v-text-field>
+              </v-col>
+            </v-row>
+          </v-flex>
+        </v-layout>
+        <v-layout>
+          <v-flex xs12 md3>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="img_url" :rules="rules" label="Images"></v-text-field>
+              </v-col>
+            </v-row>
+          </v-flex>
+        </v-layout>
       </v-container>
     </v-main>
   </div>
@@ -32,13 +86,16 @@ export default {
       value => !!value || 'Required.',
       value => (value && value.length >= 3) || 'Min 3 characters',
     ],
+    alignments: [
+      'center',
+    ],
   }),
 
 }
 </script>
 <style>
-div{
-  display: flex;
-  justify-content: center
-}
+/*div {*/
+/*  display: flex;*/
+/*  justify-content: center*/
+/*}*/
 </style>
