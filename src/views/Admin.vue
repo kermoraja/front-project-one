@@ -26,7 +26,6 @@
                 value=""
                 hint="Hint text"
                 v-model="input_tour.desc_long">
-
             </v-textarea>
           </v-col>
         </v-row>
