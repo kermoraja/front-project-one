@@ -28,6 +28,41 @@
           </v-col>
         </v-row>
       </v-container>
+      <v-container>
+        <v-row>
+          <v-col md="3" xs="12">
+            <v-text-field v-model="input_guide.name" label="Insert guide's name"></v-text-field>
+          </v-col>
+        </v-row>
+         <v-row>
+          <v-col md="3" xs="12">
+            <v-text-field v-model="input_guide.phone" label="Insert guide's phone"></v-text-field>
+          </v-col>
+        </v-row>
+         <v-row>
+          <v-col md="3" xs="12">
+            <v-text-field v-model="input_guide.email" label="Insert guide's email"></v-text-field>
+          </v-col>
+        </v-row>
+         <v-row>
+          <v-col md="3" xs="12">
+            <v-text-field v-model="input_guide.city" label="Insert guide's location"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col md="3" xs="12">
+            <v-text-field v-model="input_guide.hour_rate" label="Insert guide's hour rate"></v-text-field>
+          </v-col>
+        </v-row>
+
+        <v-row justify="space-around">
+          <v-col md="1" xs="12">
+            <v-btn depressed v-on:click = "add_Driver()">
+              Submit
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-main>
   </div>
 </template>
@@ -37,15 +72,13 @@ import router from "../router";
 export default {
   data: function () {
     return {
-      title: "",
-      desc_short: "",
-      desc_long: "",
-      duration: "",
-      city: 0,
-      img_url: "",
-      input_tour: {},
-      input_image: {},
-      tour_created: "",
+      name:"",
+      phone:0,
+      email:"",
+      city:"",
+      hour_rate:"",
+      input_guide: {},
+      guide_created: "",
       rules: [
         value => !!value || 'Required.',
         value => (value && value.length >= 1) || 'Min 3 characters',
@@ -58,7 +91,15 @@ export default {
   },
 
 
-  methods: {
+
+  methods:{
+
+    add_Driver: function () {
+      this.$http.post('/api/guide', this.input_guide)
+          .then(response => {
+            this.guide_created = response.data
+          })
+    },
     addTour: function () {
       router.push({name: 'Add Tour', path: '/add-tour'})
     },
@@ -71,8 +112,8 @@ export default {
     addCity: function () {
       router.push({name: 'Add City', path: '/add-city'})
     },
-
   }
+
 }
 </script>
 <style>
