@@ -57,7 +57,7 @@ export default {
   methods:{
     uploadPhotos: function () {
 
-      this.$http.post('/api/addphoto', + this.input_image)
+      this.$http.post('/api/addphoto', this.input_image)
 
           .then(response => {
             this.images_crated = response.data

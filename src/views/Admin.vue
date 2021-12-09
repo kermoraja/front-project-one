@@ -45,7 +45,7 @@
           <v-col md="2" xs="12">
             Tour ID: {{tour_created}}
           </v-col>
-          <v-col v-col md="1" xs="12">
+          <v-col md="1" xs="12">
             <v-btn depressed v-on:click = "addPhotos(tour_created)">
               Add Photos
             </v-btn>
@@ -95,7 +95,7 @@ export default {
 
     addPhotos:function() {
       console.log(this.tour_created)
-      router.push({name: 'Add-photo', params: {id: this.tour_created.id}})
+      router.push({name: 'Add-photo', params: {id: this.tour_created}})
     },
     }
 
