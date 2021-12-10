@@ -94,23 +94,19 @@ import router from "../router";
 export default {
   data: function () {
     return {
-      title:"",
-      desc_short:"",
-      desc_long:"",
-      duration:"",
-      city:0,
-      img_url:"",
+      title: "",
+      desc_short: "",
+      desc_long: "",
+      duration: "",
+      city: 0,
+      img_url: "",
       input_tour: {},
-      input_image:{},
+      input_image: {},
       tour_created: "",
       rules: [
         value => !!value || 'Required.',
         value => (value && value.length >= 1) || 'Min 3 characters',
       ],
-      alignments: [
-        'center',
-      ],
-      items: [1, 2, 3]
     }
   },
 

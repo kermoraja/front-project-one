@@ -39,15 +39,15 @@
             :headers="headers"
             :items="tours"
             sort-by="id"
-            class="elevation-1"
+            class="elevation-3"
         >
           <template v-slot:top>
             <v-toolbar
                 flat
             >
-              <v-toolbar-title>Tour List</v-toolbar-title>
+              <v-toolbar-title>Tour List </v-toolbar-title>
               <v-divider
-                  class="mx-4"
+                  class="mx-10"
                   inset
                   vertical
               ></v-divider>
@@ -83,7 +83,7 @@
                         >
                           <v-text-field
                               v-model="editedItem.name"
-                              label="Dessert name"
+                              label="Title"
                           ></v-text-field>
                         </v-col>
                         <v-col
@@ -288,16 +288,18 @@ export default {
       this.editedIndex = this.tours.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
-      this.$http.delete('/api/deletetour/' + item)
-      .then(() => {
-        this.tours()
-      })
+
 
     },
 
     deleteItemConfirm () {
+      this.$http.delete('/api/deletetour/' + item)
+          .then(() => {
+            this.tours()
+          })
       this.tours.splice(this.editedIndex, 1)
       this.closeDelete()
+
     },
 
     close () {
