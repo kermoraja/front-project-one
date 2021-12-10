@@ -3,94 +3,24 @@
     <v-main>
       <v-container>
         <v-row>
-          <v-col md="6" xs="12">
-            <v-card>
-              <v-img height="300px" src="https://www.nordicexperience.com/wp-content/uploads/2014/04/Vanalinna-ekskursioon-2h-vaike.jpg"></v-img>
-              <v-col md="6" xs="12"><v-card-title>Tallinn Private Panoramic Drive</v-card-title></v-col>
-
-            </v-card>
-          </v-col>
+          <v-col><v-btn @click="getTour()">Show tours</v-btn></v-col>
         </v-row>
-
         <v-row>
           <v-col md="6" xs="12">
-            <v-card
-                class="mx-auto"
-                max-width="450"
-            >
-              <v-img
-                  class="white--text align-end"
-                  height="200px"
-                  src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-                <v-card-title>Top 10 Australian beaches</v-card-title>
+            <v-card v-for="item in tours" @click="addTour()">
+              <v-img height="300px"
+                     src="https://www.nordicexperience.com/wp-content/uploads/2014/04/Vanalinna-ekskursioon-2h-vaike.jpg">
+                <v-row>
+                  <v-col class="titleUp" md="3">
+
+                    <v-card-title class="textBold">{{ item.duration }}</v-card-title>
+                  </v-col>
+                </v-row>
+
               </v-img>
-
-              <v-card-subtitle class="pb-0">
-                Number 10
-              </v-card-subtitle>
-
-              <v-card-text class="text--primary">
-                <div>Whitehaven Beach</div>
-
-                <div>Whitsunday Island, Whitsunday Islands</div>
+              <v-card-title class="titleColor">{{ item.title }}</v-card-title>
+              <v-card-text>{{item.desc_short}}
               </v-card-text>
-
-              <v-card-actions>
-                <v-btn
-                    color="orange"
-                    text
-                >
-                  Share
-                </v-btn>
-
-                <v-btn
-                    color="orange"
-                    text
-                >
-                  Explore
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-          <v-col md="6" xs="12">
-            <v-card
-                class="mx-auto"
-                max-width="450"
-            >
-              <v-img
-                  class="white--text align-end"
-                  height="200px"
-                  src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-                <v-card-title>Top 10 Australian beaches</v-card-title>
-              </v-img>
-
-              <v-card-subtitle class="pb-0">
-                Number 10
-              </v-card-subtitle>
-
-              <v-card-text class="text--primary">
-                <div>Whitehaven Beach</div>
-
-                <div>Whitsunday Island, Whitsunday Islands</div>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-btn
-                    color="orange"
-                    text
-                >
-                  Share
-                </v-btn>
-
-                <v-btn
-                    color="orange"
-                    text
-                >
-                  Explore
-                </v-btn>
-              </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
@@ -115,12 +45,55 @@
 
 <script>
 
+import router from "../router";
+
 export default {
-data: function (){
-return {
-  page: 1,
+  data: function () {
+    return {
+      tours:[],
+      id:0,
+      title:"",
+      desc_short:"",
+      desc_long:"",
+      duration:"",
+      city:0,
+      page: 1,
+    }
+  },
+  icons: {
+    iconfont: 'mdiSvg',
+  },
+  methods: {
+
+    addTour: function () {
+      router.push({name: 'Add Tour', path: '/add-tour'})
+    },
+
+    getTour: function (){
+      this.$http.get('/api/tourlist')
+          .then(response => {
+            this.tours = response.data
+          })
+    },
+    mounted(){
+      this.getTour();
+      }
+    }
+  }
+
+</script>
+<style>
+.titleColor {
+  background-color: rgba(255, 255, 255, 0.5);
 }
-},
+
+.textBold {
+  font-weight: bold;
+}
+
+.titleUp {
+  margin-left: 75%;
+  background-color: rgba(255, 255, 255, 0.7);
 
 }
-</script>
+</style>

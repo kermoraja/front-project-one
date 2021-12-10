@@ -13,6 +13,7 @@
     "vuetify": "^2.4.0"
   },
   "devDependencies": {
+    "@mdi/font": "^6.5.95",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "axios": "^0.24.0",
