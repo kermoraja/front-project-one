@@ -26,6 +26,12 @@
               Add Driver
             </v-btn>
           </v-col>
+          <v-col md="1" xs="12"></v-col>
+          <v-col md="1" xs="12">
+            <v-btn depressed v-on:click="tourList()">
+              Tour List
+            </v-btn>
+          </v-col>
         </v-row>
       </v-container>
       <v-container>
@@ -75,8 +81,8 @@ export default {
       name:"",
       phone:0,
       email:"",
-      city:"",
-      hour_rate:"",
+      city:0,
+      hour_rate:0,
       input_guide: {},
       guide_created: "",
       rules: [
@@ -112,6 +118,9 @@ export default {
     addCity: function () {
       router.push({name: 'Add City', path: '/add-city'})
     },
+    tourList: function () {
+      router.push({name: 'Tour List', path: '/tour-list'})
+    }
   }
 
 }

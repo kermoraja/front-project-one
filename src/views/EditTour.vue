@@ -71,18 +71,18 @@
         </v-row>
         <v-row justify="space-around">
           <v-col md="1" xs="12">
-            <v-btn depressed v-on:click = "createTour()">
+            <v-btn depressed v-on:click = "editTour()">
               Submit
             </v-btn>
           </v-col>
           <v-col md="2" xs="12">
-            Tour ID: {{tour_created}}
+            Tour ID: {{item}}
           </v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click = "addPhotos(tour_created)">
-              Add Photos
-            </v-btn>
-          </v-col>
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click = "addPhotos(tour_created)">-->
+<!--              Add Photos-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
         </v-row>
       </v-container>
     </v-main>
@@ -102,34 +102,31 @@ export default {
       img_url:"",
       input_tour: {},
       input_image:{},
+      tour_changed:"",
       tour_created: "",
-      rules: [
-        value => !!value || 'Required.',
-        value => (value && value.length >= 1) || 'Min 3 characters',
-      ],
-      alignments: [
-        'center',
-      ],
-      items: [1, 2, 3]
+
     }
+  },
+  mounted(){
+    this.$http.get('/api/tour/' + this.$route.params.id)
+    .then(response => this.input_tour = response.data)
+    console.log(this.$route.params)
   },
 
 
-
   methods:{
-    createTour: function () {
+    editTour: function () {
 
-      this.$http.post('/api/tour', this.input_tour)
+      this.$http.put('/api/edittour', this.input_tour)
           .then(response => {
-            this.tour_created = response.data
-            console.log(this.tour_created)
+            this.tour_changed = response.data
           })
     },
 
-    addPhotos:function() {
-      console.log(this.tour_created)
-      router.push({name: 'Add-photo', params: {id: this.tour_created}})
-    },
+    // addPhotos:function() {
+    //   console.log(this.tour_changed)
+    //   router.push({name: 'Add-photo', params: {id: .id}})
+    // },
     addTour: function () {
       router.push({name: 'Add Tour', path: '/add-tour'})
     },
@@ -145,9 +142,9 @@ export default {
     tourList: function () {
       router.push({name: 'Tour List', path: '/tour-list'})
     }
-  }
+    }
 
-}
+  }
 </script>
 <style>
 /*div {*/

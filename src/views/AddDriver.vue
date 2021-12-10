@@ -26,11 +26,17 @@
               Add Driver
             </v-btn>
           </v-col>
+          <v-col md="1" xs="12"></v-col>
+          <v-col md="1" xs="12">
+            <v-btn depressed v-on:click="tourList()">
+              Tour List
+            </v-btn>
+          </v-col>
         </v-row>
       </v-container>
       <v-container>
         <v-row>
-          <v-col md="3" xs="12">
+          <v-col md="3" xs="12" >
             <v-text-field v-model="input_driver.first_name" label="Insert driver's first name"></v-text-field>
           </v-col>
         </v-row>
@@ -118,13 +124,17 @@ export default {
     addCity: function () {
       router.push({name: 'Add City', path: '/add-city'})
     },
+    tourList: function () {
+      router.push({name: 'Tour List', path: '/tour-list'})
+    }
   }
 
 }
 </script>
 <style>
-/*div {*/
-/*  display: flex;*/
-/*  justify-content: center*/
-/*}*/
+v-col{
+  font-family: sans-serif Calibri;
+  color: #FFFFFF;
+
+}
 </style>

@@ -1,32 +1,69 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-            alt="Logo"
-            class="shrink mr-2"
-            contain
-            src="https://i.ibb.co/YL8S2DG/logo.png"
-            transition="scale-transition"
-            width="200"
-        />
+    <container class="hero">
+      <v-card class="overflow-hidden">
+        <v-app-bar
+            elevation="3"
+            fixed
+            color="white"
+            scroll-target="#scrolling-techniques-7"
 
-      </div>
-      <div>
-        <v-container>
-
-              <v-btn depressed v-on:click="">
-                Submit
+        >
+          <v-row
+              align="center"
+              justify="space-around">
+            <cel md="1" xs="12">
+              <v-btn text to="/">
+                Home
               </v-btn>
+            </cel>
+            <cel md="1" xs="12">
+              <v-btn text to="/about">
+                About US
+              </v-btn>
+            </cel>
+            <cel md="1" xs="12">
+              <v-btn text to="/contact">
+                CONTACT
+              </v-btn>
+            </cel><cel md="1" xs="12">
+              <v-btn text to="/admin">
+                ADMIN
+              </v-btn>
+            </cel>
 
-        </v-container>
+          </v-row>
+          <v-spacer></v-spacer>
 
-      </div>
-    </v-app-bar>
+          <v-btn icon>
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
 
-    <v-main>
+          <v-btn icon>
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
+
+          <v-btn icon>
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </v-app-bar>
+        <v-sheet
+            id="scrolling-techniques-7"
+            class="overflow-y-auto"
+
+        >
+          <v-container>
+            <v-main>
+            </v-main>
+          </v-container>
+        </v-sheet>
+      </v-card>
+    <v-container>
+    </v-container>
+    <v-container>
       <router-view/>
-    </v-main>
+    </v-container>
+    </container>
   </v-app>
 </template>
 
@@ -35,8 +72,24 @@
 export default {
   name: 'App',
 
+
   data: () => ({
     //
   }),
-};
+  methods: {
+
+
+  },
+
+
+}
 </script>
+<style>
+h1 {
+  font-family: "Roboto", sans-serif;
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+</style>
