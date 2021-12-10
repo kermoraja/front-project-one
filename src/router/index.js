@@ -81,6 +81,13 @@ const routes = [
         }
     },
     {
+        path: '/tour/:id',
+        name: 'Tour',
+        component: function () {
+            return import('../views/Tour.vue')
+        }
+    },
+    {
         path: '/add-availability',
         name: 'Add Availability',
         component: function () {
