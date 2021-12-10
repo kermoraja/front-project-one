@@ -18,6 +18,13 @@ const routes = [
         }
     },
     {
+        path: '/contact',
+        name: 'Contact',
+        component: function () {
+            return import('../views/Contact.vue')
+        }
+    },
+    {
         path: '/admin',
         name: 'Admin',
         component: function () {
@@ -57,6 +64,20 @@ const routes = [
         name: 'Add City',
         component: function () {
             return import('../views/AddCity.vue')
+        }
+    },
+    {
+        path: '/tour-list',
+        name: 'Tour List',
+        component: function () {
+            return import('../views/TourList_beta.vue')
+        }
+    },
+    {
+        path: '/edit-tour/:id',
+        name: 'Edit Tour',
+        component: function () {
+            return import('../views/EditTour.vue')
         }
     },
     {

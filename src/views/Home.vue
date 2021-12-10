@@ -1,15 +1,24 @@
 <template>
-  <hello-world />
+  <div>
+    <v-main>
+      <v-container>
+        <v-row>
+          <v-col md="6" xs="12">
+
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </div>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
 
   export default {
     name: 'Home',
 
     components: {
-      HelloWorld,
+
     },
   }
 </script>
