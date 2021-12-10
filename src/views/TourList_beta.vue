@@ -292,13 +292,15 @@ export default {
 
     },
 
-    deleteItemConfirm () {
+    deleteItemConfirm (item) {
+
       this.$http.delete('/api/deletetour/' + item)
           .then(() => {
             this.tours()
           })
       this.tours.splice(this.editedIndex, 1)
       this.closeDelete()
+
 
     },
 
