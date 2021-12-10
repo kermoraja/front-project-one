@@ -86,6 +86,11 @@ const routes = [
         component: function () {
             return import('../views/AddAvailability.vue')
         }
+    },
+    {
+        path: '/guides',
+        name: 'Guides',
+        component: Guides
     }
 ]
 
