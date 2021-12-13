@@ -76,7 +76,7 @@ export default {
   methods:{
 
     add_City: function () {
-      this.$http.post('/api/city', this.input_city)
+      this.$http.post('/api/public/city', this.input_city)
           .then(response => {
             this.city_created = response.data
           })

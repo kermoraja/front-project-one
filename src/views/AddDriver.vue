@@ -107,7 +107,7 @@ export default {
   methods:{
 
     add_Driver: function () {
-      this.$http.post('/api/driver', this.input_driver)
+      this.$http.post('/api/public/driver', this.input_driver)
           .then(response => {
             this.driver_created = response.data
           })

@@ -119,7 +119,7 @@ export default {
   methods:{
     createTour: function () {
 
-      this.$http.post('/api/tour', this.input_tour)
+      this.$http.post('/api/public/tour', this.input_tour)
           .then(response => {
             this.tour_created = response.data
             console.log(this.tour_created)
