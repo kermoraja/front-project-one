@@ -49,7 +49,7 @@ export default {
   },
 
   mounted() {
-    this.$http.get('/api/tour/' + this.$route.params.id)
+    this.$http.get('/api/public/tour/' + this.$route.params.id)
         .then(response => this.tour_created = response.data)
     console.log(this.$route.params)
   },
@@ -57,7 +57,7 @@ export default {
   methods:{
     uploadPhotos: function () {
 
-      this.$http.post('/api/addphoto', this.input_image)
+      this.$http.post('/api/public/addphoto', this.input_image)
 
           .then(response => {
             this.images_crated = response.data

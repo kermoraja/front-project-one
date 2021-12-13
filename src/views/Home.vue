@@ -90,7 +90,7 @@ export default {
     },
 
     getTour: function (){
-      this.$http.get('/api/tourwithphotos')
+      this.$http.get('/api/public/tourwithphotos')
           .then(response => {
             this.tours = response.data
           })

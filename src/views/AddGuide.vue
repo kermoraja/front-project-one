@@ -101,7 +101,7 @@ export default {
   methods:{
 
     add_Driver: function () {
-      this.$http.post('/api/guide', this.input_guide)
+      this.$http.post('/api/public/guide', this.input_guide)
           .then(response => {
             this.guide_created = response.data
           })

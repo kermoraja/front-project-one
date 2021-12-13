@@ -38,6 +38,8 @@
         <v-data-table
             :headers="headers"
             :items="tours"
+            :expanded.sync="expanded"
+            show-expand
             sort-by="id"
             class="elevation-3"
         >
@@ -52,6 +54,11 @@
                   vertical
               ></v-divider>
               <v-spacer></v-spacer>
+<!--              <v-switch-->
+<!--                  v-model="singleExpand"-->
+<!--                  label="Single expand"-->
+<!--                  class="mt-2"-->
+<!--              ></v-switch>-->
               <v-dialog
                   v-model="dialog"
                   max-width="500px"
@@ -162,6 +169,11 @@
               </v-dialog>
             </v-toolbar>
           </template>
+          <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              {{ item.desc_long }}
+            </td>
+          </template>
           <template v-slot:item.actions="{ item }">
             <v-icon
                 small
@@ -195,6 +207,8 @@ import router from "../router";
 export default {
   data: function () {
     return {
+      expanded: [],
+      // singleExpand: false,
       dialog: false,
       dialogDelete: false,
       headers: [
@@ -205,10 +219,12 @@ export default {
         },
         {text: 'Tour Title', value: 'title'},
         {text: 'Short Desc.', value: 'desc_short'},
-        {text: 'Long Desc.', value: 'desc_long'},
+        {text: 'Long Desc.', value:'long_text'},
+        {text: '', value: 'data-table-expand' },
         {text: 'Duration', value: 'duration'},
         {text: 'City', value: 'city'},
         {text: 'Actions', value: 'actions', sortable: false},
+
       ],
       tours: [],
       editedIndex: -1,
@@ -219,6 +235,7 @@ export default {
         desc_long: "",
         duration: "",
         city: 0,
+        long_text:"Show more"
       },
       defaultItem: {
         id:0,
@@ -269,7 +286,7 @@ export default {
       router.push({name: 'Tour List', path: '/tour-list'})
     },
     initialize () {
-      this.$http.get('/api/tourlist')
+      this.$http.get('/api/public/tourlist')
           .then(response => {
             this.tours = response.data
           })
@@ -294,7 +311,7 @@ export default {
 
     deleteItemConfirm (item) {
 
-      this.$http.delete('/api/deletetour/' + item)
+      this.$http.delete('/api/public/deletetour/' + item)
           .then(() => {
             this.tours()
           })

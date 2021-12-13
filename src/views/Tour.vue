@@ -36,7 +36,7 @@ export default {
     },
 
     getTour: function (){
-      this.$http.get('/api/tourlist')
+      this.$http.get('/api/public/tourlist')
           .then(response => {
             this.tours = response.data
           })
