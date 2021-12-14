@@ -6,10 +6,9 @@
 <!--          <v-col><v-btn @click="getTour()">Show tours</v-btn></v-col>-->
 <!--        </v-row>-->
         <v-row>
-          <v-col md="6" xs="12">
-            <v-card v-for="item in tours" @click="directTour(item.id)">
-<!--              {{item}}-->
-              <v-img height="300px" src="https://www.nordicexperience.com/wp-content/uploads/2014/10/tll-tours-768x350.jpg">
+          <v-col v-for="item in tours" md="6" xs="12">
+            <v-card  @click="directTour(item.id)">
+              <v-img height="300px" :src="item.photo_url">
                 <v-row>
                   <v-col md="3" xs="12">
                     <v-chip
