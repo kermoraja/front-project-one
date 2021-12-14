@@ -1,6 +1,12 @@
 <template>
   <div>
     <v-main>
+      <div>
+        <v-container>
+          <h1>ADMIN LOG IN PAGE</h1>
+        </v-container>
+      </div>
+      <div v-if="token">
       <v-container>
         <v-row>
           <v-col md="1" xs="12">
@@ -32,8 +38,35 @@
               Tour List
             </v-btn>
           </v-col>
+        <v-col md="1" xs="12"></v-col>
+          <v-col md="1" xs="12">
+            <v-btn depressed v-on:click="logout()">
+              Logout
+            </v-btn>
+          </v-col>
         </v-row>
       </v-container>
+      </div>
+      <div v-if="!token">
+        <v-row>
+          <v-col md="2" xs="12" >
+            <v-text-field v-model="user.userName" label="Username"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col md="2" xs="12" >
+            <v-text-field type="password" v-model="user.password" label="Password"></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col md="1" xs="12">
+            <v-btn depressed v-on:click="login()"> Log in</v-btn>
+          </v-col>
+          <v-col md="1" xs="12">
+            <v-btn depressed v-on:click="logout()">Log out</v-btn>
+          </v-col>
+        </v-row>
+      </div>
     </v-main>
   </div>
 </template>
@@ -43,6 +76,10 @@ import router from "../router";
 export default {
   data: function () {
     return {
+      user: {},
+      token: "",
+      userName:"",
+      password:"",
       title: "",
       desc_short: "",
       desc_long: "",
@@ -80,6 +117,21 @@ export default {
     tourList: function () {
       router.push({name: 'Tour List', path: '/tour-list'})
     },
+    login() {
+      this.$http.post('api/public/login', this.user)
+          .then(result => {
+            localStorage.setItem('user-token', result.data)
+            this.token = result.data
+            this.$http.defaults.headers.common['Authorization'] = "Bearer " + this.token
+            // router.push({name: 'Admin'})
+          })
+    },
+    logout(){
+    localStorage.removeItem('user-token');
+    alert("You have been logged out")
+    location.reload();
+
+  }
 
   }
 }

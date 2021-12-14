@@ -46,6 +46,11 @@
               Submit
             </v-btn>
           </v-col>
+          <v-col md="1" xs="12">
+            <v-btn depressed v-on:click="logout()">
+              Logout
+            </v-btn>
+          </v-col>
         </v-row>
       </v-container>
     </v-main>
@@ -76,7 +81,7 @@ export default {
   methods:{
 
     add_City: function () {
-      this.$http.post('/api/public/city', this.input_city)
+      this.$http.post('/api/city', this.input_city)
           .then(response => {
             this.city_created = response.data
           })
@@ -95,6 +100,12 @@ export default {
     },
     tourList: function () {
       router.push({name: 'Tour List', path: '/tour-list'})
+    },
+    logout(){
+      localStorage.removeItem('user-token');
+      alert("You have been logged out")
+      location.reload();
+
     }
   }
 

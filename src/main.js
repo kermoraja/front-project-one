@@ -13,3 +13,9 @@ new Vue({
   vuetify,
   render: function (h) { return h(App) }
 }).$mount('#app')
+
+const token = localStorage.getItem('user-token')
+if(token){
+  console.log(token)
+  axios.defaults.headers.common['Authorization'] = "Bearer " + token
+}
