@@ -2,12 +2,13 @@
   <div>
     <v-main>
       <v-container>
-        <v-row>
-          <v-col><v-btn @click="getTour()">Show tours</v-btn></v-col>
-        </v-row>
+<!--        <v-row>-->
+<!--          <v-col><v-btn @click="getTour()">Show tours</v-btn></v-col>-->
+<!--        </v-row>-->
         <v-row>
           <v-col md="6" xs="12">
             <v-card v-for="item in tours" @click="directTour(item.id)">
+<!--              {{item}}-->
               <v-img height="300px" src="https://www.nordicexperience.com/wp-content/uploads/2014/10/tll-tours-768x350.jpg">
                 <v-row>
                   <v-col md="3" xs="12">
@@ -83,6 +84,9 @@ export default {
   icons: {
     iconfont: 'mdiSvg',
   },
+  mounted: function(){
+    this.getTour();
+  },
   methods: {
 
     directTour: function () {
@@ -92,12 +96,11 @@ export default {
     getTour: function (){
       this.$http.get('/api/public/tourwithphotos')
           .then(response => {
+            console.log(response.data)
             this.tours = response.data
           })
     },
-    mounted(){
-      this.getTour();
-      }
+
     }
   }
 

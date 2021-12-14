@@ -32,6 +32,11 @@
               Tour List
             </v-btn>
           </v-col>
+          <v-col md="1" xs="12">
+            <v-btn depressed v-on:click="logout()">
+              Logout
+            </v-btn>
+          </v-col>
         </v-row>
       </v-container>
       <v-container>
@@ -115,7 +120,7 @@ export default {
   methods:{
     createTour: function () {
 
-      this.$http.post('/api/public/tour', this.input_tour)
+      this.$http.post('/api/tour', this.input_tour)
           .then(response => {
             this.tour_created = response.data
             console.log(this.tour_created)
@@ -140,6 +145,12 @@ export default {
     },
     tourList: function () {
       router.push({name: 'Tour List', path: '/tour-list'})
+    },
+    logout(){
+      localStorage.removeItem('user-token');
+      alert("You have been logged out")
+      location.reload();
+
     }
     }
 

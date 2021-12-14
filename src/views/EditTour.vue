@@ -117,7 +117,7 @@ export default {
   methods:{
     editTour: function () {
 
-      this.$http.put('/api/public/edittour', this.input_tour)
+      this.$http.put('/api/edittour', this.input_tour)
           .then(response => {
             this.tour_changed = response.data
           })

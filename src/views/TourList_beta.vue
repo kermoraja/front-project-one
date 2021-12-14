@@ -218,8 +218,8 @@ export default {
           value: 'id',
         },
         {text: 'Tour Title', value: 'title'},
-        {text: 'Short Desc.', value: 'desc_short'},
-        {text: 'Long Desc.', value:'long_text'},
+        {text: 'Short Desc.', value: 'desc_short', sortable:false},
+        {text: 'Long Desc.', value:'long_text', sortable:false},
         {text: '', value: 'data-table-expand' },
         {text: 'Duration', value: 'duration'},
         {text: 'City', value: 'city'},
@@ -311,7 +311,7 @@ export default {
 
     deleteItemConfirm (item) {
 
-      this.$http.delete('/api/public/deletetour/' + item)
+      this.$http.delete('/api/deletetour/' + item)
           .then(() => {
             this.tours()
           })
