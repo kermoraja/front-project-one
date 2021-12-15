@@ -32,6 +32,12 @@
               Tour List
             </v-btn>
           </v-col>
+          <v-col md="1" xs="12"></v-col>
+          <v-col md="1" xs="12">
+            <v-btn depressed v-on:click="logout()">
+              Logout
+            </v-btn>
+          </v-col>
         </v-row>
       </v-container>
       <v-container>
@@ -71,18 +77,18 @@
         </v-row>
         <v-row justify="space-around">
           <v-col md="1" xs="12">
-            <v-btn depressed v-on:click = "editTour()">
+            <v-btn depressed v-on:click="editTour()">
               Submit
             </v-btn>
           </v-col>
           <v-col md="2" xs="12">
-            Tour ID: {{item}}
+            Tour ID: {{ item }}
           </v-col>
-<!--          <v-col md="1" xs="12">-->
-<!--            <v-btn depressed v-on:click = "addPhotos(tour_created)">-->
-<!--              Add Photos-->
-<!--            </v-btn>-->
-<!--          </v-col>-->
+          <!--          <v-col md="1" xs="12">-->
+          <!--            <v-btn depressed v-on:click = "addPhotos(tour_created)">-->
+          <!--              Add Photos-->
+          <!--            </v-btn>-->
+          <!--          </v-col>-->
         </v-row>
       </v-container>
     </v-main>
@@ -94,27 +100,27 @@ import router from "../router";
 export default {
   data: function () {
     return {
-      title:"",
-      desc_short:"",
-      desc_long:"",
-      duration:"",
-      city:0,
-      img_url:"",
+      title: "",
+      desc_short: "",
+      desc_long: "",
+      duration: "",
+      city: 0,
+      img_url: "",
       input_tour: {},
-      input_image:{},
-      tour_changed:"",
+      input_image: {},
+      tour_changed: "",
       tour_created: "",
 
     }
   },
-  mounted(){
+  mounted() {
     this.$http.get('/api/tour/' + this.$route.params.id)
-    .then(response => this.input_tour = response.data)
+        .then(response => this.input_tour = response.data)
     console.log(this.$route.params)
   },
 
 
-  methods:{
+  methods: {
     editTour: function () {
 
       this.$http.put('/api/edittour', this.input_tour)
@@ -141,10 +147,16 @@ export default {
     },
     tourList: function () {
       router.push({name: 'Tour List', path: '/tour-list'})
-    }
-    }
+    },
+    logout() {
+      localStorage.removeItem('user-token');
+      alert("You have been logged out")
+      location.reload();
 
+    }
   }
+
+}
 </script>
 <style>
 /*div {*/

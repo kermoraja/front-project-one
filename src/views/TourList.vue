@@ -32,6 +32,13 @@
               Tour List
             </v-btn>
           </v-col>
+          <v-col md="1" xs="12"></v-col>
+          <v-col md="1" xs="12">
+            <v-btn depressed v-on:click="logout()">
+              Logout
+            </v-btn>
+          </v-col>
+
         </v-row>
       </v-container>
       <v-container>
@@ -403,6 +410,12 @@ export default {
       }
       this.close()
     },
+  logout(){
+    localStorage.removeItem('user-token');
+    alert("You have been logged out")
+    location.reload();
+
+  }
   },
 }
 </script>
