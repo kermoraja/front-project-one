@@ -52,7 +52,7 @@
             <div class="text-center">
               <v-pagination
                   v-model="page"
-                  :length="2"
+                  :length="1"
               ></v-pagination>
             </div>
           </v-col>
@@ -88,8 +88,8 @@ export default {
   },
   methods: {
 
-    directTour: function () {
-      router.push({name: 'Tour', params: {id: this.item.id}})
+    directTour: function (id) {
+      router.push({name: 'Tour', params: {id: id}})
     },
 
     getTour: function (){

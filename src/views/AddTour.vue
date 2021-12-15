@@ -32,6 +32,7 @@
               Tour List
             </v-btn>
           </v-col>
+          <v-col md="1" xs="12"></v-col>
           <v-col md="1" xs="12">
             <v-btn depressed v-on:click="logout()">
               Logout
@@ -85,7 +86,7 @@
           </v-col>
           <v-col md="1" xs="12">
             <v-btn depressed v-on:click = "addPhotos(tour_created)">
-              Add Photos
+              Add Header Photo
             </v-btn>
           </v-col>
         </v-row>
