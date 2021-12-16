@@ -128,9 +128,13 @@ h1 {
 
 h3 {
   margin-left: 1%;
+  margin-right: 3%;
   padding-top: 10px;
   font-weight: lighter;
   font-family: 'Caveat', cursive;
+  text-align: justify;
+  white-space: pre-line;
+
 }
 
 h4 {

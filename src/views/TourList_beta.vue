@@ -193,14 +193,11 @@
             >
               mdi-delete
             </v-icon>
-          </template>
-          <template v-slot:no-data>
-            <v-btn
-                color="primary"
-                @click="initialize"
+            <v-icon
+                v-on:click="addGallery(item.id)"
             >
-              Reset
-            </v-btn>
+              mdi-file-image-outline
+            </v-icon>
           </template>
         </v-data-table>
       </v-container>
@@ -250,6 +247,7 @@ export default {
         desc_long: "",
         duration: "",
         city: 0,
+        long_text:"Show more"
       }
     }
   },
@@ -296,31 +294,29 @@ export default {
           .then(response => {
             this.tours = response.data
           })
-
-      // this.tours = []
     },
 
     editItem (item) {
-      this.editedIndex = this.tours.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.defaultIndex = this.tours.indexOf(item)
+      this.defaultItem = Object.assign({}, item)
       this.dialog = true
       router.push({name: 'Edit Tour', params: {id: item}})
     },
 
     deleteItem (item) {
-      this.editedIndex = this.tours.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialogDelete = true
+      this.defaultItem = this.tours.indexOf(item)
+      this.defaultItem = Object.assign({}, item)
+      this.$http.delete('/api/deletetour/' + item)
+          .then(() => {
+            this.initialize()
+          })
 
 
     },
 
     deleteItemConfirm (item) {
 
-      this.$http.delete('/api/deletetour/' + item)
-          .then(() => {
-            this.tours()
-          })
+
       this.tours.splice(this.editedIndex, 1)
       this.closeDelete()
 
@@ -354,9 +350,13 @@ export default {
   logout(){
     localStorage.removeItem('user-token');
     alert("You have been logged out")
-    location.reload();
+    router.push({name: 'Home', path: '/'})
 
-  }  },
+  },
+    addGallery(){
+      router.push({name: 'Add Gallery', path: '/add-gallery'})
+    }
+  }
 
 }
 </script>

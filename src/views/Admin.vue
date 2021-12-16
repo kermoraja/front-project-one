@@ -3,7 +3,9 @@
     <v-main>
       <div>
         <v-container>
+          <div v-if="!token">
           <h1>ADMIN LOG IN PAGE</h1>
+          </div>
         </v-container>
       </div>
       <div v-if="token">
@@ -38,12 +40,12 @@
                 Tour List
               </v-btn>
             </v-col>
-            <v-col md="1" xs="12"></v-col>
-            <v-col md="1" xs="12">
-              <v-btn depressed v-on:click="addGallery()">
-                Add Photos
-              </v-btn>
-            </v-col>
+<!--            <v-col md="1" xs="12"></v-col>-->
+<!--            <v-col md="1" xs="12">-->
+<!--              <v-btn depressed v-on:click="addGallery()">-->
+<!--                Add Photos-->
+<!--              </v-btn>-->
+<!--            </v-col>-->
             <v-col md="1" xs="12"></v-col>
             <v-col md="1" xs="12">
               <v-btn depressed v-on:click="logout()">
@@ -123,25 +125,28 @@ export default {
     tourList: function () {
       router.push({name: 'Tour List', path: '/tour-list'})
     },
-    addGallery: function(){
-      router.push({name: 'Add Gallery', path: '/add-gallery'})
-    },
+    // addGallery: function(){
+    //   router.push({name: 'Add Gallery', path: '/add-gallery'})
+    // },
     login() {
       this.$http.post('api/public/login', this.user)
           .then(result => {
             localStorage.setItem('user-token', result.data)
             this.token = result.data
             this.$http.defaults.headers.common['Authorization'] = "Bearer " + this.token
-            // router.push({name: 'Admin'})
+            // location.reload();
+            // router.push({name: 'Home'})
           })
     },
     logout() {
       localStorage.removeItem('user-token');
       alert("You have been logged out")
-      location.reload();
+      router.push({name: 'Home', path: '/'})
 
     }
 
+  }, mounted() {
+    this.token = localStorage.getItem('user-token')
   }
 }
 </script>

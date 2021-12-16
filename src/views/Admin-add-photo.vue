@@ -32,6 +32,7 @@
               Tour List
             </v-btn>
           </v-col>
+          <v-col md="1" xs="12"></v-col>
           <v-col md="1" xs="12">
             <v-btn depressed v-on:click="logout()">
               Logout
@@ -115,12 +116,13 @@ export default {
 
           .then(response => {
             this.images_crated = response.data
+            router.push({name: 'Tour List', path: '/tour-list'})
           })
     },
     logout(){
       localStorage.removeItem('user-token');
       alert("You have been logged out")
-      location.reload();
+      router.push({name: 'Home', path: '/'})
 
     }
 
