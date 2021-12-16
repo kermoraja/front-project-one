@@ -114,7 +114,7 @@ export default {
     }
   },
   mounted() {
-    this.$http.get('/api/tour/' + this.$route.params.id)
+    this.$http.get('/api/public/tour/' + this.$route.params.id)
         .then(response => this.input_tour = response.data)
     console.log(this.$route.params)
   },
@@ -126,6 +126,8 @@ export default {
       this.$http.put('/api/edittour', this.input_tour)
           .then(response => {
             this.tour_changed = response.data
+            router.push({name: 'Tour List', path: '/tour-list'})
+
           })
     },
 
@@ -151,7 +153,7 @@ export default {
     logout() {
       localStorage.removeItem('user-token');
       alert("You have been logged out")
-      location.reload();
+      router.push({name: 'Home', path: '/'})
 
     }
   }
@@ -159,8 +161,4 @@ export default {
 }
 </script>
 <style>
-/*div {*/
-/*  display: flex;*/
-/*  justify-content: center*/
-/*}*/
 </style>

@@ -130,7 +130,7 @@ export default {
     logout(){
       localStorage.removeItem('user-token');
       alert("You have been logged out")
-      location.reload();
+      router.push({name: 'Home', path: '/'})
 
     }
   }
