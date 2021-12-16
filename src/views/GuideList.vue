@@ -49,7 +49,7 @@
       <v-container>
         <v-data-table
             :headers="headers"
-            :items="tours"
+            :items="guides"
             :expanded.sync="expanded"
             show-expand
             sort-by="id"
@@ -59,7 +59,7 @@
             <v-toolbar
                 flat
             >
-              <v-toolbar-title>Tour List</v-toolbar-title>
+              <v-toolbar-title>Guide List</v-toolbar-title>
               <v-divider
                   class="mx-10"
                   inset
@@ -82,9 +82,9 @@
                       class="mb-2"
                       v-bind="attrs"
                       v-on="on"
-                      v-on:click="addTour()"
+                      v-on:click="addGuide()"
                   >
-                    New Item
+                    New Guide
                   </v-btn>
                 </template>
                 <v-card>
@@ -177,11 +177,11 @@
               </v-dialog>
             </v-toolbar>
           </template>
-          <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
-              {{ item.desc_long }}
-            </td>
-          </template>
+          <!--          <template v-slot:expanded-item="{ headers, item }">-->
+          <!--            <td :colspan="headers.length">-->
+          <!--              {{ item.desc_long }}-->
+          <!--            </td>-->
+          <!--          </template>-->
           <template v-slot:item.actions="{ item }">
             <v-icon
                 small
@@ -217,33 +217,31 @@ export default {
           align: 'start',
           value: 'id',
         },
-        {text: 'Tour Title', value: 'title'},
-        {text: 'Short Desc.', value: 'desc_short', sortable: false},
-        {text: 'Long Desc.', value: 'long_text', sortable: false},
-        {text: '', value: 'data-table-expand'},
-        {text: 'Duration', value: 'duration'},
-        {text: 'City', value: 'city'},
+        {text: 'Guide name', value: 'name'},
+        {text: 'Phone', value: 'phone', sortable: false},
+        {text: 'Email', value: 'email', sortable: false},
+        {text: 'Hour rate', value: 'hour'},
+        {text: 'City', value: 'city_id'},
         {text: 'Actions', value: 'actions', sortable: false},
 
       ],
-      tours: [],
+      guides: [],
       editedIndex: -1,
       editedItem: {
         id: 0,
-        title: "",
-        desc_short: "",
-        desc_long: "",
-        duration: "",
-        city: 0,
-        long_text: "Show more"
+        name: "",
+        phone: "",
+        email: "",
+        hour: "",
+        city_id: 0,
       },
       defaultItem: {
         id: 0,
-        title: "",
-        desc_short: "",
-        desc_long: "",
-        duration: "",
-        city: 0,
+        name: "",
+        phone: "",
+        email: "",
+        hour: "",
+        city_id: 0,
       }
     }
   },
@@ -289,23 +287,23 @@ export default {
       router.push({name: 'Guide List', path: '/guide-list'})
     },
     initialize() {
-      this.$http.get('/api/public/tourlist')
+      this.$http.get('/api/public/guidelist')
           .then(response => {
-            this.tours = response.data
+            this.guides = response.data
           })
 
       // this.tours = []
     },
 
     editItem(item) {
-      this.editedIndex = this.tours.indexOf(item)
+      this.editedIndex = this.guides.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
-      router.push({name: 'Edit Tour', params: {id: item}})
+      router.push({name: 'Edit Guide', params: {id: item}})
     },
 
     deleteItem(item) {
-      this.editedIndex = this.tours.indexOf(item)
+      this.editedIndex = this.guides.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
 
@@ -314,11 +312,11 @@ export default {
 
     deleteItemConfirm(item) {
 
-      this.$http.delete('/api/deletetour/' + item)
+      this.$http.delete('/api/deleteguide/' + item)
           .then(() => {
-            this.tours()
+            this.guides()
           })
-      this.tours.splice(this.editedIndex, 1)
+      this.guides.splice(this.editedIndex, 1)
       this.closeDelete()
 
 
@@ -342,9 +340,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.tours[this.editedIndex], this.editedItem)
+        Object.assign(this.guides[this.editedIndex], this.editedItem)
       } else {
-        this.tours.push(this.editedItem)
+        this.guides.push(this.editedItem)
       }
       this.close()
     },

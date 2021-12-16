@@ -109,6 +109,13 @@ const routes = [
         component: function () {
             return import('../views/AddGallery.vue')
         }
+    },
+    {
+        path: '/guide-list',
+        name: 'Guide List',
+        component: function () {
+            return import('../views/GuideList.vue')
+        }
     }
 ]
 
