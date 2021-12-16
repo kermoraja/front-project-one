@@ -112,6 +112,13 @@ const routes = [
         }
     },
     {
+        path: '/guide-list',
+        name: 'Guide List',
+        component: function () {
+            return import('../views/GuideList.vue')
+        }
+    },
+    {
     path: '/avbTemp',
     name: 'avbTemplate',
         component: function () {

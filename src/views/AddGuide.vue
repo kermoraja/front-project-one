@@ -34,6 +34,12 @@
           </v-col>
           <v-col md="1" xs="12"></v-col>
           <v-col md="1" xs="12">
+            <v-btn depressed v-on:click="guideList()">
+              Guide List
+            </v-btn>
+          </v-col>
+          <v-col md="1" xs="12"></v-col>
+          <v-col md="1" xs="12">
             <v-btn depressed v-on:click="logout()">
               Logout
             </v-btn>
@@ -58,7 +64,7 @@
         </v-row>
          <v-row>
           <v-col md="3" xs="12">
-            <v-text-field v-model="input_guide.city" label="Insert guide's location"></v-text-field>
+            <v-text-field v-model="input_guide.city" label="Insert guide's location (Tallinn = 1 etc)"></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -126,6 +132,9 @@ export default {
     },
     tourList: function () {
       router.push({name: 'Tour List', path: '/tour-list'})
+    },
+    guideList: function () {
+      router.push({name: 'Guide List', path: '/guide-list'})
     },
     logout(){
       localStorage.removeItem('user-token');

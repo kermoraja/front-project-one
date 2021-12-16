@@ -9,9 +9,11 @@ Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 
 new Vue({
-  router,
-  vuetify,
-  render: function (h) { return h(App) }
+    router,
+    vuetify,
+    render: function (h) {
+        return h(App)
+    }
 }).$mount('#app')
 
 const token = localStorage.getItem('user-token')
