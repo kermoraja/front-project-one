@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import * as path from "path";
 // import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
@@ -108,6 +109,13 @@ const routes = [
         name: 'Add Gallery',
         component: function () {
             return import('../views/AddGallery.vue')
+        }
+    },
+    {
+    path: '/avbTemp',
+    name: 'avbTemplate',
+        component: function () {
+        return import('../views/AvbTemplate')
         }
     }
 ]
