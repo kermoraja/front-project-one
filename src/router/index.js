@@ -122,7 +122,7 @@ const routes = [
     path: '/avbTemp',
     name: 'avbTemplate',
         component: function () {
-        return import('../views/AvbTemplate')
+        return import('../views/AvbTemplate.vue')
         }
     }
 ]

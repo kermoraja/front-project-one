@@ -38,30 +38,30 @@
         <h2>Add availability</h2>
         <v-row>
           <v-col>
-            <v-select v-model="avbRow.selectedStartTime" :items="startTimes" label="Select start time" title="Start time">
+            <v-select v-model="avbRow.time" :items="startTimes" label="Select start time" title="Start time">
             </v-select>
           </v-col>
           <!--          <v-col>{{selectedStartTime}}</v-col>-->
 
-          <v-checkbox v-model="avbRow.weekDays" label="Mon" value="1"></v-checkbox>
+          <v-checkbox v-model="avbRow.dayOfWeek" label="Mon" value="1"></v-checkbox>
 
-          <v-checkbox v-model="avbRow.weekDays" label="Tue" value="2"></v-checkbox>
-          <v-checkbox v-model="avbRow.weekDays" label="Wed" value="3"></v-checkbox>
+          <v-checkbox v-model="avbRow.dayOfWeek" label="Tue" value="2"></v-checkbox>
+          <v-checkbox v-model="avbRow.dayOfWeek" label="Wed" value="3"></v-checkbox>
 
-          <v-checkbox v-model="avbRow.weekDays" label="Thu" value="4"></v-checkbox>
-          <v-checkbox v-model="avbRow.weekDays" label="Fri" value="5"></v-checkbox>
-          <v-checkbox v-model="avbRow.weekDays" label="Sat" value="6"></v-checkbox>
-          <v-checkbox v-model="avbRow.weekDays" label="Sun" value="0"></v-checkbox>
+          <v-checkbox v-model="avbRow.dayOfWeek" label="Thu" value="4"></v-checkbox>
+          <v-checkbox v-model="avbRow.dayOfWeek" label="Fri" value="5"></v-checkbox>
+          <v-checkbox v-model="avbRow.dayOfWeek" label="Sat" value="6"></v-checkbox>
+          <v-checkbox v-model.number="avbRow.dayOfWeek" label="Sun" value="0"></v-checkbox>
 
           <!--          <v-col>{{weekDays}}</v-col>-->
           <v-col>
-            <v-text-field v-model="avbRow.groupSize" label="Group size"></v-text-field>
+            <v-text-field v-model.number="avbRow.maxGroup" label="Group size"></v-text-field>
           </v-col>
           <v-col>
-            <v-text-field v-model="avbRow.priceRegular" label="Regular price"></v-text-field>
+            <v-text-field v-model.number="avbRow.regularPrice" label="Regular price"></v-text-field>
           </v-col>
           <v-col>
-            <v-text-field v-model="avbRow.priceReduced" label="Reduced price"></v-text-field>
+            <v-text-field v-model.number="avbRow.reducedPrice" label="Reduced price"></v-text-field>
           </v-col>
           <v-col>
             <v-btn color="primary"
@@ -69,7 +69,30 @@
             </v-btn>
           </v-col>
         </v-row>
-<!--        <h3>Show data</h3>-->
+        <h3>All availabilities</h3><v-btn color="primary" v-on:click="genAvailabilities()">Generate</v-btn>
+        <br><br>
+
+        <v-row>
+          <v-col>ID</v-col>
+          <v-col>Tour ID</v-col>
+          <v-col>Starting time</v-col>
+          <v-col>Weekday</v-col>
+          <v-col>Group size</v-col>
+          <v-col>Regular Price</v-col>
+          <v-col>Reduced Price</v-col>
+        </v-row>
+        <v-table v-for="item in avbTemplates">
+          <v-row>
+            <v-col >{{item.id}}</v-col>
+            <v-col >{{item.tourId}}</v-col>
+            <v-col >{{item.time}}</v-col>
+            <v-col  >{{item.dayOfWeek}}</v-col>
+            <v-col >{{item.maxGroup}}</v-col>
+            <v-col >{{item.regularPrice}}</v-col>
+            <v-col >{{item.reducedPrice}}</v-col>
+          </v-row>
+        </v-table>
+        <!--        <h3>Show data</h3>-->
 <!--        {{ avbRow }}-->
 <!--        <br><br>-->
 <!--        <v-divider></v-divider>-->
@@ -115,14 +138,15 @@ export default {
       tourId: 1,
       input_city: {},
       city_created: "",
+      dayOfWeek:0,
       weekDays: [],
-      startTimes: ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00'],
+      startTimes: ['8:00:00', '8:30:00', '9:00:00', '9:30:00', '10:00:00', '10:30:00', '11:00:00', '11:30:00', '12:00:00'],
       selectedStartTime: "",
-      groupSize: "",
-      priceRegular: "",
-      priceReduced: "",
+      maxGroup: 0,
+      regularPrice: 0,
+      reducedPrice: 0,
       avbRow: {}, // siin on info ühe availability rea kohta ehk 1 tuur, 1 kellaaeg ja kõik nädalapäevad
-      avbTemplate: [], //siin ühe tuuri kõik availability väärtused
+      avbTemplates: [], //siin ühe tuuri kõik availability väärtused
       rules: [
         value => !!value || 'Required.',
         value => (value && value.length >= 1) || 'Min 3 characters',
@@ -133,15 +157,54 @@ export default {
       items: [1, 2, 3]
     }
   },
+  mounted() {
+    this.showAvbList()
 
+  },
 
   methods: {
     addAvb: function () {
       this.avbRow.tourId = 1;
       this.avbRow.startDate = "2021-01-01"
-      this.avbRow.endDate = "2021-31-12"
+      this.avbRow.endDate = "2021-12-31"
       this.$http.post('api/avbTemplate', this.avbRow)
+      .then(() => {
+        this.showAvbList()
+      })
     },
+    showAvbList: function() {
+      this.$http.get("api/avbTourTemplates/" + 1)
+          .then(response => {
+            this.avbTemplates = response.data
+
+            if (this.avbTemplates.dayOfWeek === 0) {
+              this.avbTemplates.dayOfWeek = "Sun"
+            }
+            if (this.avbTemplates.dayOfWeek === 1) {
+              this.avbTemplates.dayOfWeek = "Mon"
+            }else{
+              this.avbTemplates.dayOfWeek = this.avbTemplates.dayOfWeek
+            }
+            if (this.avbTemplates.dayOfWeek === 2) {
+              this.avbTemplates.dayOfWeek = "Tue"
+            }
+            if (this.avbTemplates.dayOfWeek === 3) {
+              this.avbTemplates.dayOfWeek = "Wed"
+            }
+            if (this.avbTemplates.dayOfWeek === 4) {
+              this.avbTemplates.dayOfWeek = "Thu"
+            }
+            if (this.avbTemplates.dayOfWeek === 5) {
+              this.avbTemplates.dayOfWeek = "Fri"
+            }
+            if (this.avbTemplates.dayOfWeek === 6) {
+              this.avbTemplates.dayOfWeek = "Sat"
+            }
+          })
+    },
+
+
+
 
     // add_City: function () {
     //   this.$http.post('/api/city', this.input_city)
