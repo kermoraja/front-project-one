@@ -1,51 +1,51 @@
 <template>
   <div>
     <v-main>
-      <v-container>
-        <v-row>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="addTour()">
-              Add Tour
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="addCity()">
-              Add City
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="addGuide()">
-              Add Guide
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="addDriver()">
-              Add Driver
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="tourList()">
-              Tour List
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="logout()">
-              Logout
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="guideList()">
-              Guide List
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
+<!--      <v-container>-->
+<!--        <v-row>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="addTour()">-->
+<!--              Add Tour-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="addCity()">-->
+<!--              Add City-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="addGuide()">-->
+<!--              Add Guide-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="addDriver()">-->
+<!--              Add Driver-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="tourList()">-->
+<!--              Tour List-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="logout()">-->
+<!--              Logout-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="guideList()">-->
+<!--              Guide List-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--        </v-row>-->
+<!--      </v-container>-->
       <v-container>
         <v-data-table
             :headers="headers"
@@ -188,19 +188,20 @@
           </template>
           <template v-slot:item.actions="{ item }">
             <v-icon
+                class="ml-3"
                 small
-                class="mr-2"
                 @click="editItem(item.id)"
             >
               mdi-pencil
             </v-icon>
             <v-icon
-                v-on:click="deleteItem(item.id)"
+                @click="deleteItem(item.id)"
             >
               mdi-delete
             </v-icon>
             <v-icon
-                v-on:click="addGallery(item.id)"
+                class="mr-3"
+                @click="addGallery(item.id)"
             >
               mdi-file-image-outline
             </v-icon>

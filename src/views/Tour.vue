@@ -4,8 +4,8 @@
       <v-container></v-container>
       <v-container>
         <v-row>
-          <v-col>
-            <v-card elevation="3" max-width="600">
+          <v-col class="pa-md-4 mx-lg-auto">
+            <v-card elevation="3" max-width="900">
               <div class="bgDiv"><h1>{{ tours.title }}</h1></div>
               <v-divider></v-divider>
               <v-row>
@@ -23,8 +23,8 @@
               </v-row>
             </v-card>
           </v-col>
-          <v-col>
-            <v-card elevation="3" max-width="600">
+          <v-col class="pa-md-5 mx-lg-auto">
+            <v-card elevation="3" max-width="350">
               <div class="bgDiv"><h1>Tour Photos</h1></div>
               <v-divider></v-divider>
               <v-carousel hide-delimiters>
@@ -32,11 +32,61 @@
                     v-for="(item,i) in photos"
                     :key="i"
                     :src="item.photo_url"
-                    style="width:600px;height:auto;"
+                    style="width:350px;height:auto;"
 
                 ></v-carousel-item>
               </v-carousel>
             </v-card>
+            <v-container></v-container>
+          <v-row>
+            <div>
+              <v-card
+                  :loading="loading"
+                  class="mx-auto ml-3"
+                  width="350"
+                  elevation="3"
+              ><div class="bgDiv">
+                <h1>Availability Info{{dayOfWeek}}</h1>
+              </div>
+                <v-divider></v-divider>
+                <template slot="progress">
+                  <v-progress-linear
+                      color="grey"
+                      height="10"
+                      indeterminate
+                  ></v-progress-linear>
+                </template>
+                <v-card-text>
+                  <v-row
+                      align="center"
+                      class="mx-0"
+                  >
+                  </v-row>
+                </v-card-text>
+                  <div class="ml-3"> {{this.tours.title}}</div>
+                <v-divider class="mx-4"></v-divider>
+
+                <v-card-title></v-card-title>
+
+                <v-card-text>
+                  <div>
+                  </div>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-btn
+                      v-on:click="book(this.id)"
+                      color="deep-purple lighten-2"
+                      text
+                      @click="reserve"
+                  >
+                    Book
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </div>
+            </v-row>
+
           </v-col>
         </v-row>
       </v-container>
@@ -51,6 +101,8 @@ import router from "../router";
 export default {
   data: function () {
     return {
+      loading: false,
+      selection: 1,
       photos: [],
       tours: [],
       id: 0,
@@ -62,8 +114,8 @@ export default {
       page: 1,
       item: "",
       toursCity: "",
-      photo_url:""
-
+      photo_url:"",
+      dayOfWeek:0,
     }
   },
   icons: {
@@ -72,6 +124,7 @@ export default {
   mounted: function () {
     this.getTour();
     this.getTourPictures()
+    this.getDayOfWeek()
   },
   methods: {
     getTourPictures: function () {
@@ -80,6 +133,12 @@ export default {
             this.photos = response.data
             console.log(this.photos)
           })
+    },
+    getDayOfWeek: function(){
+      const d = new Date(2022,0,1);
+      this.dayOfWeek = d.getDay()
+      console.log(this.dayOfWeek);
+
     },
     getTour() {
       this.$http.get('/api/public/tour/' + this.$route.params.id)
@@ -108,7 +167,17 @@ export default {
           .then(response => {
             this.toursCity = response.data
           })
-    }
+    },
+    book: function(id){
+
+      router.push({name: 'Booking', params: {id: id}})
+
+    },
+    reserve () {
+      this.loading = true
+
+      setTimeout(() => (this.loading = false), 2000)
+    },
   }
 }
 
@@ -123,15 +192,15 @@ h1 {
 }
 .bgDiv{
   background-image: url("../assets/gradient1.jpg");
-  background-size: 600px;
+  background-size: 900px;
 }
 
 h3 {
   margin-left: 1%;
   margin-right: 3%;
   padding-top: 10px;
-  font-weight: lighter;
-  font-family: 'Caveat', cursive;
+  /*font-weight: lighter;*/
+  font-family: 'Source Sans Pro', sans-serif;
   text-align: justify;
   white-space: pre-line;
 

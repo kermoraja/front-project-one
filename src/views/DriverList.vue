@@ -49,7 +49,7 @@
       <v-container>
         <v-data-table
             :headers="headers"
-            :items="guides"
+            :items="drivers"
             :expanded.sync="expanded"
             show-expand
             sort-by="id"
@@ -59,7 +59,7 @@
             <v-toolbar
                 flat
             >
-              <v-toolbar-title>Guide List</v-toolbar-title>
+              <v-toolbar-title>Driver List</v-toolbar-title>
               <v-divider
                   class="mx-10"
                   inset
@@ -82,9 +82,9 @@
                       class="mb-2"
                       v-bind="attrs"
                       v-on="on"
-                      v-on:click="addGuide()"
+                      v-on:click="addDriver()"
                   >
-                    New Guide
+                    New Driver
                   </v-btn>
                 </template>
                 <v-card>
@@ -217,30 +217,33 @@ export default {
           align: 'start',
           value: 'id',
         },
-        {text: 'Guide name', value: 'name'},
+        {text: 'Driver firstname', value: 'firstName'},
+        {text: 'Driver lastname', value: 'lastName'},
         {text: 'Phone', value: 'phone', sortable: false},
         {text: 'Email', value: 'email', sortable: false},
-        {text: 'Hour rate', value: 'hourRate'},
+        {text: 'Car Size', value: 'car_size'},
         {text: 'City', value: 'city_id'},
         {text: 'Actions', value: 'actions', sortable: false},
 
       ],
-      guides: [],
+      drivers: [],
       editedIndex: -1,
       editedItem: {
         id: 0,
-        name: "",
+        firstName: "",
+        lastName: "",
         phone: "",
         email: "",
-        hourRate: "",
+        car_size: 0,
         city_id: 0,
       },
       defaultItem: {
         id: 0,
-        name: "",
+        firstName: "",
+        lastName: "",
         phone: "",
         email: "",
-        hourRate: "",
+        car_size: 0,
         city_id: 0,
       }
     }
@@ -287,25 +290,25 @@ export default {
       router.push({name: 'Guide List', path: '/guide-list'})
     },
     initialize() {
-      this.$http.get('/api/public/guidelist')
+      this.$http.get('/api/driverlist')
           .then(response => {
-            this.guides = response.data
+            this.drivers = response.data
           })
 
       // this.tours = []
     },
 
     editItem(item) {
-      this.defaultIndex = this.guides.indexOf(item)
+      this.defaultIndex = this.drivers.indexOf(item)
       this.defaultItem = Object.assign({}, item)
       this.dialog = true
-      router.push({name: 'Edit Guide', params: {id: item}})
+      router.push({name: 'Edit Driver', params: {id: item}})
     },
 
     deleteItem(item) {
-      this.defaultItem = this.guides.indexOf(item)
+      this.defaultItem = this.drivers.indexOf(item)
       this.defaultItem = Object.assign({}, item)
-      this.$http.delete('/api/public/deleteguide/' + item)
+      this.$http.delete('/api/deletedriver/' + item)
           .then(() => {
             this.initialize()
           })
@@ -315,11 +318,11 @@ export default {
 
     deleteItemConfirm(item) {
 
-      this.$http.delete('/api/deleteguide/' + item)
+      this.$http.delete('/api/deletedriver/' + item)
           .then(() => {
-            this.guides()
+            this.drivers()
           })
-      this.guides.splice(this.editedIndex, 1)
+      this.drivers.splice(this.editedIndex, 1)
       this.closeDelete()
 
 
@@ -343,9 +346,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.guides[this.editedIndex], this.editedItem)
+        Object.assign(this.drivers[this.editedIndex], this.editedItem)
       } else {
-        this.guides.push(this.editedItem)
+        this.drivers.push(this.editedItem)
       }
       this.close()
     },

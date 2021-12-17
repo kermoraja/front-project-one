@@ -13,14 +13,14 @@
         <v-text-field type="password" v-model="user.password" label="Password"></v-text-field>
       </v-col>
     </v-row>
-    <row>
-      <v-col md="1" xs="12">
+    <v-row>
+      <v-col md="2" xs="12">
         <v-btn depressed v-on:click="login()"> Log in</v-btn>
       </v-col>
-      <v-col md="1" xs="12">
+      <v-col md="2" xs="12">
       <v-btn depressed v-on:click="logout()">Log out</v-btn>
       </v-col>
-    </row>
+    </v-row>
       </v-container>
     </v-main>
   </div>
@@ -40,7 +40,8 @@ export default {
           .then(result => {
             localStorage.setItem('user-token', result.data)
             this.$http.defaults.headers.common['Authorization'] = "Bearer" + this.token
-            // router.push({name: 'Admin'})
+            router.push({name: 'Home',path: '/'})
+            location.reload()
           });
 
     }
