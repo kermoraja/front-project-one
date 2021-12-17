@@ -49,12 +49,6 @@
         </v-row>
         <v-row>
           <v-col md="12" xs="12">
-            <div class="text-center">
-              <v-pagination
-                  v-model="page"
-                  :length="1"
-              ></v-pagination>
-            </div>
           </v-col>
         </v-row>
       </v-container>

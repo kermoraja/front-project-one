@@ -43,12 +43,12 @@
       <v-container>
         <v-row>
           <v-col md="3" xs="12" >
-            <v-text-field v-model="input_driver.first_name" label="Insert driver's first name"></v-text-field>
+            <v-text-field v-model="input_driver.firstName" label="Insert driver's first name"></v-text-field>
           </v-col>
         </v-row>
         <v-row>
           <v-col md="3" xs="12">
-            <v-text-field v-model="input_driver.last_name" label="Insert driver's last name"></v-text-field>
+            <v-text-field v-model="input_driver.lastName" label="Insert driver's last name"></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -63,7 +63,7 @@
         </v-row>
         <v-row>
           <v-col md="3" xs="12">
-            <v-text-field v-model="input_driver.city" label="Insert driver's location"></v-text-field>
+            <v-text-field v-model="input_driver.city_id" label="Insert driver's location"></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -89,27 +89,31 @@ import router from "../router";
 export default {
   data: function () {
     return {
-      first_name:"",
-      last_name:"",
+      firstName:"",
+      lastName:"",
       phone:"",
       email:"",
-      city:"",
+      city_id:1,
       car_size:0,
       input_driver: {},
       driver_created: "",
+
     }
   },
-
+  mounted() {
+    this.$http.get('/api/driver/'+ this.$route.params.id)
+        .then(response => this.input_driver = response.data)
+  },
 
 
   methods:{
 
     add_Driver: function () {
-      this.$http.post('/api/driver', this.input_driver)
+      this.$http.put('/api/editdriver', this.input_driver)
           .then(response => {
             this.driver_created = response.data
-            router.push({name: 'Driver List', path: '/driver-list'})
           })
+      router.push({name: 'Driver List', path: '/driver-list'})
     },
     addTour: function () {
       router.push({name: 'Add Tour', path: '/add-tour'})

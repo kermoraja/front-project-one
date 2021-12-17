@@ -56,10 +56,38 @@ const routes = [
         }
     },
     {
+        path: '/edit-guide/:id',
+        name: 'Edit Guide',
+        component: function () {
+            return import('../views/EditGuide.vue')
+        }
+    },
+    {
         path: '/add-driver',
         name: 'Add Driver',
         component: function () {
             return import('../views/AddDriver.vue')
+        }
+    },
+    {
+        path: '/edit-driver/:id',
+        name: 'Edit Driver',
+        component: function () {
+            return import('../views/EditDriver.vue')
+        }
+    },
+    {
+        path: '/driver-list',
+        name: 'Driver List',
+        component: function () {
+            return import('../views/DriverList.vue')
+        }
+    },
+    {
+        path: '/booking',
+        name: 'Booking',
+        component: function () {
+            return import('../views/Booking.vue')
         }
     },
     {
@@ -122,7 +150,14 @@ const routes = [
     path: '/avbTemp',
     name: 'avbTemplate',
         component: function () {
-        return import('../views/AvbTemplate')
+        return import('../views/AvbTemplate.vue')
+        }
+    },
+    {
+        path: '/logout',
+        name: 'Logout',
+        component: function () {
+            return import('../views/Logout.vue')
         }
     }
 ]

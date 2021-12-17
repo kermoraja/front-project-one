@@ -1,51 +1,51 @@
 <template>
   <div>
     <v-main>
-      <v-container>
-        <v-row>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="addTour()">
-              Add Tour
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="addCity()">
-              Add City
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="addGuide()">
-              Add Guide
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="addDriver()">
-              Add Driver
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="tourList()">
-              Tour List
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="guideList()">
-              Guide List
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="logout()">
-              Logout
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
+<!--      <v-container>-->
+<!--        <v-row>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="addTour()">-->
+<!--              Add Tour-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="addCity()">-->
+<!--              Add City-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="addGuide()">-->
+<!--              Add Guide-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="addDriver()">-->
+<!--              Add Driver-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="tourList()">-->
+<!--              Tour List-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="guideList()">-->
+<!--              Guide List-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="logout()">-->
+<!--              Logout-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--        </v-row>-->
+<!--      </v-container>-->
       <v-container>
         <v-row>
           <v-col md="3" xs="12">
@@ -75,8 +75,13 @@
 
         <v-row justify="space-around">
           <v-col md="1" xs="12">
-            <v-btn depressed v-on:click = "add_Driver()">
+            <v-btn depressed v-on:click = "add_Guide()">
               Submit
+            </v-btn>
+          </v-col>
+          <v-col md="1" xs="12">
+            <v-btn depressed v-on:click = "$router.go(-1)">
+              Back
             </v-btn>
           </v-col>
         </v-row>
@@ -107,17 +112,23 @@ export default {
       items: [1, 2, 3]
     }
   },
+  mounted() {
+    this.$http.get('/api/editguide/'+ this.$route.params.id)
+        .then(response => this.input_guide = response.data)
+  },
 
 
 
   methods:{
 
-    add_Driver: function () {
+    add_Guide: function () {
       this.$http.post('/api/public/guide', this.input_guide)
           .then(response => {
             this.guide_created = response.data
+            router.push({name: 'Guide List', path: '/guide-list'})
           })
     },
+
     addTour: function () {
       router.push({name: 'Add Tour', path: '/add-tour'})
     },

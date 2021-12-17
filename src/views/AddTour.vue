@@ -1,45 +1,45 @@
 <template>
   <div>
     <v-main>
-      <v-container>
-        <v-row>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="addTour()">
-              Add Tour
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="addCity()">
-              Add City
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="addGuide()">
-              Add Guide
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="addDriver()">
-              Add Driver
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="tourList()">
-              Tour List
-            </v-btn>
-          </v-col>
-          <v-col md="1" xs="12"></v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="logout()">
-              Logout
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
+<!--      <v-container>-->
+<!--        <v-row>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="addTour()">-->
+<!--              Add Tour-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="addCity()">-->
+<!--              Add City-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="addGuide()">-->
+<!--              Add Guide-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="addDriver()">-->
+<!--              Add Driver-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="tourList()">-->
+<!--              Tour List-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--          <v-col md="1" xs="12"></v-col>-->
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="logout()">-->
+<!--              Logout-->
+<!--            </v-btn>-->
+<!--          </v-col>-->
+<!--        </v-row>-->
+<!--      </v-container>-->
       <v-container>
         <v-row>
           <v-col md="6" xs="12">
@@ -85,6 +85,11 @@
             Tour ID: {{tour_created}}
           </v-col>
           <v-col md="1" xs="12">
+            <v-btn depressed v-on:click = "$router.go(-1)">
+              Back
+            </v-btn>
+          </v-col>
+          <v-col md="1" xs="12">
             <v-btn depressed v-on:click = "addPhotos(tour_created)">
               Add Header Photo
             </v-btn>
@@ -115,9 +120,13 @@ export default {
       ],
     }
   },
-
-
-
+  mounted: function() {
+      const reloaded = localStorage.getItem('reloaded');
+      if (reloaded !== 'true') {
+        localStorage.setItem('reloaded', 'true');
+        location.reload();
+      }
+    },
   methods:{
     createTour: function () {
 

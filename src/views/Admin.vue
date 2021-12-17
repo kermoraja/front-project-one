@@ -11,35 +11,35 @@
       <div v-if="token">
         <v-container>
           <v-row>
-            <v-col md="1" xs="2">
-              <v-btn depressed v-on:click="addTour()">
-                Add Tour
-              </v-btn>
-            </v-col>
-            <v-col md="1" xs="2"></v-col>
-            <v-col md="1" xs="2">
-              <v-btn depressed v-on:click="addCity()">
-                Add City
-              </v-btn>
-            </v-col>
-            <v-col md="1" xs="2"></v-col>
-            <v-col md="1" xs="2">
-              <v-btn depressed v-on:click="addGuide()">
-                Add Guide
-              </v-btn>
-            </v-col>
-            <v-col md="1" xs="2"></v-col>
-            <v-col md="1" xs="2">
-              <v-btn depressed v-on:click="addDriver()">
-                Add Driver
-              </v-btn>
-            </v-col>
-            <v-col md="1" xs="2"></v-col>
-            <v-col md="1" xs="2">
-              <v-btn depressed v-on:click="tourList()">
-                Tour List
-              </v-btn>
-            </v-col>
+<!--            <v-col md="1" xs="2">-->
+<!--              <v-btn depressed v-on:click="addTour()">-->
+<!--                Add Tour-->
+<!--              </v-btn>-->
+<!--            </v-col>-->
+<!--            <v-col md="1" xs="2"></v-col>-->
+<!--            <v-col md="1" xs="2">-->
+<!--              <v-btn depressed v-on:click="addCity()">-->
+<!--                Add City-->
+<!--              </v-btn>-->
+<!--            </v-col>-->
+<!--            <v-col md="1" xs="2"></v-col>-->
+<!--            <v-col md="1" xs="2">-->
+<!--              <v-btn depressed v-on:click="addGuide()">-->
+<!--                Add Guide-->
+<!--              </v-btn>-->
+<!--            </v-col>-->
+<!--            <v-col md="1" xs="2"></v-col>-->
+<!--            <v-col md="1" xs="2">-->
+<!--              <v-btn depressed v-on:click="addDriver()">-->
+<!--                Add Driver-->
+<!--              </v-btn>-->
+<!--            </v-col>-->
+<!--            <v-col md="1" xs="2"></v-col>-->
+<!--            <v-col md="1" xs="2">-->
+<!--              <v-btn depressed v-on:click="tourList()">-->
+<!--                Tour List-->
+<!--              </v-btn>-->
+<!--            </v-col>-->
 <!--            <v-col md="1" xs="12"></v-col>-->
 <!--            <v-col md="1" xs="12">-->
 <!--              <v-btn depressed v-on:click="addGallery()">-->
@@ -70,9 +70,9 @@
           <v-col md="1" xs="12">
             <v-btn depressed v-on:click="login()"> Log in</v-btn>
           </v-col>
-          <v-col md="1" xs="12">
-            <v-btn depressed v-on:click="logout()">Log out</v-btn>
-          </v-col>
+<!--          <v-col md="1" xs="12">-->
+<!--            <v-btn depressed v-on:click="logout()">Log out</v-btn>-->
+<!--          </v-col>-->
         </v-row>
       </div>
     </v-main>
@@ -135,7 +135,7 @@ export default {
             this.token = result.data
             this.$http.defaults.headers.common['Authorization'] = "Bearer " + this.token
             // location.reload();
-            // router.push({name: 'Home'})
+            router.push({name: 'Tour List',path: '/tour-list'})
           })
     },
     logout() {
